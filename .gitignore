@@ -3,3 +3,6 @@ node_modules
 .next
 generated
 prisma.yml
+.unibeautifyrc.yml
+.editorconfig
+.vscode

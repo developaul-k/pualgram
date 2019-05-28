@@ -1,13 +1,11 @@
-import { isAuthenticated } from "../../../middlewares";
-import { prisma } from "../../../../generated/prisma-client";
-
+import {isAuthenticated} from '../../../middlewares';
+import {prisma} from '../../../../generated/prisma-client';
 export default {
     Mutation: {
-        unfollow: async(_, args, {request}) => {
+        unfollow: async (_, args, {request}) => {
             isAuthenticated(request);
-            const { id } = args;
-            const { user } = request;
-
+            const {id} = args;
+            const {user} = request;
             try {
                 await prisma.updateUser({
                     where: {
@@ -22,10 +20,9 @@ export default {
                     }
                 });
                 return true;
-            } catch(error) {
+            } catch (error) {
                 return false;
             }
-
         }
     }
-}
+};

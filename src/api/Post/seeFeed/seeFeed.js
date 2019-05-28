@@ -1,20 +1,35 @@
-import { prisma } from "../../../../generated/prisma-client";
+import {prisma} from "../../../../generated/prisma-client";
 
 export default {
   Query: {
-    seeFeed: async (_, __, { request, isAuthenticated }) => {
+    seeFeed: async (_, __, {request, isAuthenticated}) => {
       isAuthenticated(request);
-      const { user } = request;
-      const following = await prisma.user({ id: user.id }).following();
+      const {user} = request;
+      const following = await prisma.user({id: user.id}).following();
 
       return prisma.posts({
         where: {
           user: {
-            id_in: [...following.map(user => user.id), user.id]
+            id_in: [
+              ...following.map(user => user.id),
+              user.id
+            ]
           }
         },
         orderBy: "createdAt_DESC"
       });
+
+      /* CASE 2
+			return prisma.posts({
+				where: {
+					OR: [
+						{ user: { followers_some: { id: user.id } } },
+						{ user: { id: user.id } }
+					]
+				},
+				orderBy: "createdAt_DESC"
+			})
+			*/
     }
   }
 };

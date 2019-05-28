@@ -1,15 +1,20 @@
-import { prisma } from "../../../../generated/prisma-client";
+import {prisma} from '../../../../generated/prisma-client';
 
-const DELETE = "DELETE";
-const EDIT = "EDIT";
+const DELETE = 'DELETE';
+const EDIT = 'EDIT';
 
 export default {
   Mutation: {
-    editPost: async (_, args, { request, isAuthenticated }) => {
+    editPost: async (_, args, {request, isAuthenticated}) => {
       isAuthenticated(request);
-      const { id, caption, location, action } = args;
-      const { user } = request;
-      const post = await prisma.$exists.post({ id, user: { id: user.id } });
+      const {id, caption, location, action} = args;
+      const {user} = request;
+      const post = await prisma.$exists.post({
+        id,
+        user: {
+          id: user.id
+        }
+      });
       if (post) {
         if (action === EDIT) {
           return prisma.updatePost({
@@ -22,10 +27,10 @@ export default {
             }
           });
         } else if (action === DELETE) {
-          return prisma.deletePost({ id });
+          return prisma.deletePost({id});
         }
       } else {
-        throw Error("You can't do that");
+        throw Error('You can"t do that');
       }
     }
   }
