@@ -1,6 +1,6 @@
 type User {
   id: ID! @id
-	avatar: String
+	avatar: String! @default(value: "https://scontent-iad3-1.cdninstagram.com/vp/c05694784824078e05d6cef17be94dd6/5D7C0DF1/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-iad3-1.cdninstagram.com")
   username: String! @unique
   email: String! @unique
   firstName: String @default(value: "")
@@ -11,7 +11,7 @@ type User {
   posts: [Post!]! @relation(name: "PostsOfUser" onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikesOfUser" onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentsOfUser" onDelete: CASCADE)
-  rooms: [Room!]!
+  rooms: [Room!]! @relation(name: "RoomsOfUser" onDelete: CASCADE)
   loginSecret: String
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
@@ -56,8 +56,8 @@ type File {
 
 type Room {
   id: ID! @id
-  participants: [User!]!
-  messages: [Message!]!
+  participants: [User!]! @relation(name: "RoomsOfUser")
+  messages: [Message!]! @relation(name: "MessageOfRoom" onDelete: CASCADE)
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }
@@ -67,7 +67,7 @@ type Message {
   text: String!
   from: User! @relation(name: "From")
   to: User! @relation(name: "To")
-  room: Room!
+  room: Room! @relation(name: "MessageOfRoom")
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }
