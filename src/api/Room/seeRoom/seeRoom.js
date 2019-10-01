@@ -3,6 +3,7 @@ import {prisma} from "../../../../generated/prisma-client";
 export default {
   Query: {
     seeRoom: async (_, args, {request, isAuthenticated}) => {
+      console.log(request.user)
       isAuthenticated(request);
       const {id} = args;
       const {user} = request;

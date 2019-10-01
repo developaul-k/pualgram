@@ -1,10 +1,11 @@
-import {prisma} from "../../../../generated/prisma-client";
+import { prisma } from '../../../../generated/prisma-client';
 
 export default {
   Query: {
     seeFullPost: async (_, args) => {
-      const {id} = args;
-      return prisma.post({id});
+      const { id } = args;
+      console.log('here')
+      return prisma.post({ id });
     }
   }
 };
