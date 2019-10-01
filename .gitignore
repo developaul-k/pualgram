@@ -6,3 +6,4 @@ prisma.yml
 .unibeautifyrc.yml
 .editorconfig
 .vscode
+yarn.lock

@@ -9,8 +9,6 @@ const jwtOptions = {
 
 const verifyUser = async (payload, done) => {
   try {
-    console.log('@@@here')
-    console.log(payload.id)
     const user = await prisma.user({ id: payload.id });
 
     if (user !== null) {
@@ -32,8 +30,6 @@ export const authenticateJwt = (req, res, next) =>
     (error, user) => {
       if (user) {
         req.user = user;
-      } else {
-        console.log('왜 없어?')
       }
       next();
     }
