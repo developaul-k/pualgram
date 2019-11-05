@@ -33,6 +33,7 @@ type Post {
   isLiked: Boolean!
 	likeCount: Int!
   commentCount: Int!
+  notifications: [Notification!]!
 	createdAt: String
 	updatedAt: String
 }
@@ -85,4 +86,13 @@ type UserProfile {
   posts: [Post!]!
 	createdAt: String
 	updatedAt: String
+}
+
+type Notification {
+  id: ID!
+  creator: User!
+  post: Post!
+  notificationType: String!
+  comment: String
+  createdAt: String
 }

@@ -1,19 +1,20 @@
-import {isAuthenticated} from '../../../middlewares';
-import {prisma} from '../../../../generated/prisma-client';
+import { isAuthenticated } from '../../../middlewares';
+import { prisma } from '../../../../generated/prisma-client';
 
 export default {
   Mutation: {
-    toggleLike: async (_, args, {request}) => {
+    toggleLike: async (_, args, { request }) => {
       isAuthenticated(request);
-      const {postId} = args;
-      const {user} = request;
+      const { postId, postUserId } = args;
+      const { user } = request;
       const filterOptions = {
         AND: [
           {
             user: {
               id: user.id
             }
-          }, {
+          },
+          {
             post: {
               id: postId
             }
@@ -24,6 +25,20 @@ export default {
         const existingLike = await prisma.$exists.like(filterOptions);
         if (existingLike) {
           await prisma.deleteManyLikes(filterOptions);
+          await prisma.deleteManyNotifications({
+            AND: [
+              {
+                creator: {
+                  id: user.id
+                }
+              },
+              {
+                post: {
+                  id: postId
+                }
+              }
+            ]
+          });
         } else {
           await prisma.createLike({
             user: {
@@ -37,9 +52,23 @@ export default {
               }
             }
           });
+
+          await prisma.createNotification({
+            creator: {
+              connect: {
+                id: user.id
+              }
+            },
+            post: {
+              connect: {
+                id: postId
+              }
+            },
+            notificationType: 'LIKE'
+          });
         }
         return true;
-      } catch  {
+      } catch {
         return false;
       }
     }

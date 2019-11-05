@@ -25,6 +25,7 @@ type Post {
   files: [File!]! @relation(name: "FilesOfPost" onDelete: CASCADE)
   likes: [Like!]! @relation(name: "LikeOfPost" onDelete: CASCADE)
   comments: [Comment!]! @relation(name: "CommentsOfPost" onDelete: CASCADE)
+  notifications: [Notification!]! @relation(name: "NoitificationOfUser", onDelete: CASCADE)
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
 }
@@ -70,4 +71,13 @@ type Message {
   room: Room! @relation(name: "MessageOfRoom")
 	createdAt: DateTime! @createdAt
 	updatedAt: DateTime! @updatedAt
+}
+
+type Notification {
+  id: ID! @id
+  creator: User! @relation(name: "NotificationCreator")
+  post: Post! @relation(name: "NoitificationOfUser")
+  notificationType: String!
+  comment: String
+  createdAt: DateTime! @createdAt
 }
