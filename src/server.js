@@ -22,7 +22,7 @@ server.express.use(authenticateJwt);
 server.express.post('/api/upload', uploadMiddleware, uploadController);
 
 //Upload Endpoint
-server.express.post('/upload', (req, res) => {
+/* server.express.post('/upload', (req, res) => {
   if (req.files === null || req.files === undefined)
     return res.status(400).json({ msg: 'No file uploaded' });
 
@@ -46,7 +46,7 @@ server.express.post('/upload', (req, res) => {
       })
       .catch(err => console.log(err));
   });
-});
+}); */
 
 //Get on uploaded image
 server.express.get('/media/:filename', (req, res, next) => {

@@ -24,20 +24,20 @@ export default {
       /**
        * TODO - 코멘트 기능 추가 후 작업
        */
-      /* await prisma.createNotification({
+      await prisma.createNotification({
         creator: {
           connect: {
             id: user.id
           }
         },
-        to: {
+        post: {
           connect: {
-            id: postUserId
+            id: postId
           }
         },
-        imageId: postId,
-        notificationType: 'COMMENT'
-      }); */
+        notificationType: 'COMMENT',
+        comment: text
+      });
 
       return comment;
     }
