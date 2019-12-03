@@ -4,9 +4,7 @@ export default {
   Query: {
     seeNotifications: async (_, __, { request, isAuthenticated }) => {
       isAuthenticated(request);
-      const {
-        user: { id }
-      } = request;
+      const { user: { id } } = request;
 
       return prisma.notifications({
         where: {
@@ -15,7 +13,8 @@ export default {
               id
             }
           }
-        }
+        },
+        orderBy: 'createdAt_DESC'
       });
     }
   }
