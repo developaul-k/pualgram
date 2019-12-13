@@ -7,7 +7,7 @@ import { authenticateJwt } from './passport';
 import { isAuthenticated } from './middlewares';
 import fileUpload from 'express-fileupload';
 import sharp from 'sharp';
-import { uploadMiddleware, uploadController } from '../upload';
+import { uploadMiddleware, uploadController } from './upload';
 
 const PORT = process.env.PORT || 4000;
 
