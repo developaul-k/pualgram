@@ -5,6 +5,9 @@
   "main": "index.js",
   "repository": "https://github.com/wallyPual/pualgram",
   "license": "MIT",
+  "engines": {
+    "yarn": "1.16.0"
+  },
   "dependencies": {
     "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
@@ -40,7 +43,7 @@
     "generate": "prisma generate",
     "prisma": "yarn run deploy && yarn run generate",
     "dev": "nodemon --exec babel-node src/server.js",
-    "postinstall": "yarn run prisma",
+    "prebuild": "yarn run prisma",
     "build": "babel src -d build",
     "postbuild": "cd src && npx copy ./api/**/*.graphql ../build/api",
     "start": "node build/server.js"
