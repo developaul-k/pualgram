@@ -2,8 +2,8 @@ node_modules
 .env
 .next
 generated
-prisma.yml
 .unibeautifyrc.yml
 .editorconfig
 .vscode
 yarn.lock
+build
